@@ -1,0 +1,169 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="UpdateRobot"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:SimpleJson;assembly=RestSharp"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="orchestratorUser" Type="InArgument(x:String)" />
+    <x:Property Name="orchestratorURL" Type="InArgument(x:String)" />
+    <x:Property Name="orchestratorPassword" Type="InArgument(x:String)" />
+    <x:Property Name="orchestratorTennant" Type="InArgument(x:String)" />
+    <x:Property Name="updatedRobotJSON" Type="OutArgument(ui:GenericValue)" />
+    <x:Property Name="robotName" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>UpdateRobot_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>SimpleJson</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Java.Activities</AssemblyReference>
+      <AssemblyReference>RestSharp</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="UpdateRobot" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="robotID" />
+      <Variable x:TypeArguments="x:String" Name="AccessToken" />
+      <Variable x:TypeArguments="s:JsonObject" Name="deserializedJSON" />
+      <Variable x:TypeArguments="x:String" Name="updatedRobot" />
+      <Variable x:TypeArguments="x:String" Name="response" />
+      <Variable x:TypeArguments="ui:QueueItem" Name="robot2beUpdated" />
+    </Sequence.Variables>
+    <ui:GetQueueItems Duration="{x:Null}" From="{x:Null}" Priority="{x:Null}" Reference="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" To="{x:Null}" Top="{x:Null}" DisplayName="Get Queue Items" FilterStrategy="StartsWith" sap2010:WorkflowViewState.IdRef="GetQueueItems_1" QueueItemStates="New" QueueName="toBeEditedRobotsQueue" />
+    <ui:GetQueueItem ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Get Transaction Item" sap2010:WorkflowViewState.IdRef="GetQueueItem_1" QueueType="toBeEditedRobotsQueue" TransactionItem="[robot2beUpdated]" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="OrchestratorAuthenticate.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InOutArgument x:TypeArguments="s:JsonObject" x:Key="deserializedJSON">[deserializedJSON]</InOutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="orchestratorUser">[orchestratorUser]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="orchestratorURL">[orchestratorURL]</InArgument>
+        <InOutArgument x:TypeArguments="x:String" x:Key="response" />
+        <InArgument x:TypeArguments="x:String" x:Key="orchestratorPassword">[orchestratorPassword]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="orchestratorTennant">[orchestratorTennant]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="AccessToken" />
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Updating robot identified by ID &quot; + robot2beUpdated.SpecificContent(&quot;robotID&quot;).ToString]" />
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[robotID]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[robot2beUpdated.SpecificContent("robotID").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="JSON" BodyFormat="application/json" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="UpdateRobot" EndPoint="[orchestratorURL + &quot;/odata/Robots(&quot; +robotID +&quot;)&quot;]" sap2010:WorkflowViewState.IdRef="HttpClient_3" Method="PUT" Result="[response]" TimeoutMS="6000">
+      <ui:HttpClient.Attachments>
+        <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+      </ui:HttpClient.Attachments>
+      <ui:HttpClient.Headers>
+        <InArgument x:TypeArguments="x:String" x:Key="Authorization">["Bearer " + deserializedJSON("result").ToString]</InArgument>
+      </ui:HttpClient.Headers>
+      <ui:HttpClient.Parameters>
+        <InArgument x:TypeArguments="x:String" x:Key="LicenseKey">testLicense</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="MachineName">testMachine</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="MachineId">12</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Name">["UPDATED" + (new Random().Next(1,10000)).ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="username">sumz00r</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Description">API created robot</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Version">1.0</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Type">Development</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="HostingType">Standard</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="password">dragos123$</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="CredentialType">Default</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="RobotEnvironments">Sumz</InArgument>
+      </ui:HttpClient.Parameters>
+      <ui:HttpClient.UrlSegments>
+        <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+      </ui:HttpClient.UrlSegments>
+    </ui:HttpClient>
+    <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="toBeDeletedRobotsQueue" Reference="[robot2beUpdated.SpecificContent(&quot;robotName&quot;).ToString]">
+      <ui:AddQueueItem.ItemInformation>
+        <InArgument x:TypeArguments="x:String" x:Key="robotName">[robot2beUpdated.SpecificContent("robotName").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="robotID">[robotID]</InArgument>
+      </ui:AddQueueItem.ItemInformation>
+    </ui:AddQueueItem>
+    <ui:SetTransactionStatus ContinueOnError="{x:Null}" Reason="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status" ErrorType="Business" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_1" Status="Successful" TransactionItem="[robot2beUpdated]">
+      <ui:SetTransactionStatus.Output>
+        <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+      </ui:SetTransactionStatus.Output>
+    </ui:SetTransactionStatus>
+    <sads:DebugSymbol.Symbol>d0VDOlxVc2Vyc1xkcmFnb3Muc3VtYVxEb2N1bWVudHNcVWlQYXRoXFNpbXBsZVJvYm90QVBJXFVwZGF0ZVJvYm90LnhhbWwsUAOUAQ4CAQFZBVnMAgIBN1oFWuIBAgEzWwVlHQIBJ2YFZuUBAgElZwVuDgIBIW8FhwEVAgELiAEFjQEXAgEFjgEFkgEfAgECWbICWckCAgE4WqQBWrsBAgE2WswBWt8BAgE0YU1hYwIBMV1QXWICAS9fSF9ZAgEtYkxiYQIBK15JXlsCASlbsQFb0AECAShmcmbiAQIBJmwwbGUCASRpMWk6AgEib/sCb4YDAgEgb80Eb9MEAgEffER8VQIBHnRGdHcCAR2BAUeBAU4CARx4RHhPAgEbgAFBgAFLAgEafUB9QwIBGW+2BG/CBAIBF2+qA2/yAwIBFIIBSoIBTgIBE3dDd04CARJ7QXtIAgERfj1+SAIBEH9Ef0wCAQ9v1QJv4AICAQ55QnlEAgENej16cAIBDIgB1gGIAZkCAgEKiAGzAYgBywECAQmKAUKKAXkCAQiLAUCLAUkCAQaOAZUCjgGoAgIBAw==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="GetQueueItems_1" sap:VirtualizedContainerService.HintSize="314.4,22.4" />
+      <sap2010:ViewStateData Id="GetQueueItem_1" sap:VirtualizedContainerService.HintSize="314.4,22.4" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314.4,88" />
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="HttpClient_3" sap:VirtualizedContainerService.HintSize="314.4,22.4" />
+      <sap2010:ViewStateData Id="AddQueueItem_1" sap:VirtualizedContainerService.HintSize="314.4,22.4" />
+      <sap2010:ViewStateData Id="SetTransactionStatus_1" sap:VirtualizedContainerService.HintSize="314.4,22.4" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336.8,757.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="UpdateRobot_1" sap:VirtualizedContainerService.HintSize="376.8,837.6" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
