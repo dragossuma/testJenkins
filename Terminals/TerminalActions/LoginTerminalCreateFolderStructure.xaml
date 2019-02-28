@@ -1,0 +1,232 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="LoginTerminalCreateFolderStructure" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="LoginTerminalCreateFolderStructure_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:uit="http://schemas.uipath.com/workflow/activities/terminal"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="LoginTerminalCreateFolderStructure" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="ui:GenericValue" Name="folderName" />
+      <Variable x:TypeArguments="x:String" Name="screenTextAfterFolderdeletion" />
+      <Variable x:TypeArguments="x:String" Name="retreivedFolderName" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="MainframeEmulatorMachine" />
+    </Sequence.Variables>
+    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="MainframeEmulatorMachine" DisplayName="Get Asset">
+      <ui:GetRobotAsset.Value>
+        <OutArgument x:TypeArguments="ui:GenericValue">[MainframeEmulatorMachine]</OutArgument>
+      </ui:GetRobotAsset.Value>
+      <sap2010:WorkflowViewState.IdRef>GetRobotAsset_1</sap2010:WorkflowViewState.IdRef>
+    </ui:GetRobotAsset>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="ui:GenericValue">[folderName]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="ui:GenericValue">["testFolder"]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <uit:TerminalSession ContinueOnError="{x:Null}" ExistingConnection="{x:Null}" OutputConnection="{x:Null}" CloseConnection="True" ConnectionString="[&quot;{'AttachExisting':false,'ConnectionType':1,'EhllBasicMode':false,'EhllDll':null,'EhllEnhanced':true,'EhllFunction':'hllapi','EhllSession':'A','Host':'&quot;+MainframeEmulatorMachine+&quot;','Mode':1,'Port':99,'Profile':null,'ProviderType':3,'ShowTerminal':true,'TerminalType':0}&quot;]" DelayMS="1000" DisplayName="Terminal Session" sap2010:WorkflowViewState.IdRef="TerminalSession_2" TimeoutMS="50000">
+      <uit:TerminalSession.Body>
+        <ActivityAction x:TypeArguments="uit:TerminalConnection">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="uit:TerminalConnection" Name="terminalSession" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_1" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys ($000)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_1" Keys="$000" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_2" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (music)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_2" Keys="music" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_3" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_4" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (x)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_3" Keys="x" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_5" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (dir)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_4" Keys="dir" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_6" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (MD TESTFOLDER)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_5" Keys="[&quot;MD &quot; +folderName]" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_7" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (DIR)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_6" Keys="DIR" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_8" Key="BackSpace" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalMoveCursor Column="4" DelayMS="300" DisplayName="Move Cursor" sap2010:WorkflowViewState.IdRef="TerminalMoveCursor_1" Row="23" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_9" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_10" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_11" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_12" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_13" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_14" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_15" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_16" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_17" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_18" Key="Delete" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_19" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_20" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (dir)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_7" Keys="dir" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_21" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (mkdir testFolder)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_8" Keys="[&quot;mkdir &quot; +folderName]" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_22" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_23" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalGetTextAtPosition Column="1" DelayMS="300" DisplayName="Get Text at Position" sap2010:WorkflowViewState.IdRef="TerminalGetTextAtPosition_1" Length="24" Row="5" Text="[retreivedFolderName]" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (dir)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_9" Keys="dir" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_24" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_25" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalGetTextAtPosition Text="{x:Null}" Column="5" DelayMS="300" DisplayName="Get Text at Position" sap2010:WorkflowViewState.IdRef="TerminalGetTextAtPosition_2" Length="10" Row="6" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (rd testfolder)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_10" Keys="[&quot;rd &quot; +folderName]" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_26" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (dir)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_11" Keys="dir" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_27" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_28" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalGetText DelayMS="300" DisplayName="Get Text" sap2010:WorkflowViewState.IdRef="TerminalGetText_1" Text="[screenTextAfterFolderdeletion]" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendKeys DelayMS="300" DisplayName="&quot;Send Keys (off)&quot;" sap2010:WorkflowViewState.IdRef="TerminalSendKeys_12" Keys="off" TimeoutMS="5000" WaitType="READY" />
+            <uit:TerminalSendControlKey DelayMS="1000" DisplayName="Send Control Key" sap2010:WorkflowViewState.IdRef="TerminalSendControlKey_29" Key="Transmit" TimeoutMS="5000" WaitType="READY" />
+          </Sequence>
+        </ActivityAction>
+      </uit:TerminalSession.Body>
+    </uit:TerminalSession>
+    <If Condition="[screenTextAfterFolderdeletion.Contains(folderName)]" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[&quot;Folder &quot; +folderName + &quot; was not deleted&quot;]" />
+          <TerminateWorkflow DisplayName="Terminate Workflow" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_1" Reason="Folder deletion was unsucesfull " />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Deleted the folder!!!&quot;]" />
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d4kBQzpcVXNlcnNcZHJhZ29zLnN1bWFcUHJvamVjdHNcUUFfaW50ZWdyYXRpb25fZ2l0SHViXFFBLUludGVncmF0aW9uLTE4LjRcVGVybWluYWxzXFRlcm1pbmFsQWN0aW9uc1xMb2dpblRlcm1pbmFsQ3JlYXRlRm9sZGVyU3RydWN0dXJlLnhhbWyyAUADmQEOAgEBRwVMGAMBswFNBVQOAwGvAVUFjAEbAgELjQEFlwEKAgECSThJUgMBtQFHNkdQAwG0AVI3UkUDAbIBTzhPRAMBsAFVlwFVvQMDAa4BVcYDVcwDAwGtAVWqBFWxBAMBrAFbC4kBFgIBDI0BE40BSQIBA48BCZIBFAIBBpUBCZUBngECAQRcDVzFAQMBqQFdDV3BAQMBpQFeDV7FAQMBogFfDV/DAQMBngFgDWDFAQMBmwFhDWHFAQMBmAFiDWK7AQMBlAFjDWPFAQMBkQFkDWS/AQMBjQFlDWXFAQMBigFmDWbjAQMBhgFnDWfFAQMBgwFoDWi/AQIBf2kNacYBAgF8ag1qvAECAXdrDWvDAQIBdGwNbMQBAgFxbQ1txAECAW5uDW7EAQIBa28Nb8QBAgFocA1wxAECAWVxDXHEAQIBYnINcsQBAgFfcw1zxAECAVx0DXTEAQIBWXUNdcYBAgFWdg12xgECAVN3DXe/AQIBT3gNeMYBAgFMeQ156QECAUh6DXrGAQIBRXsNe8YBAgFCfA18+wECATp9DX2/AQIBNn4NfsYBAgEzfw1/xgECATCAAQ2AAe4BAgEqgQENgQHkAQIBJoIBDYIBxgECASODAQ2DAcABAgEfhAENhAHGAQIBHIUBDYUBxgECARmGAQ2GAcYBAgEUhwENhwHAAQIBEIgBDYgBxgECAQ2QAQuQAb4BAgEJkQELkQGhAQIBB5UBdpUBmwECAQVcMVw3AwGrAVyrAVyxAQMBqgFdK10wAwGoAV2nAV2tAQMBpwFdlgFdnAEDAaYBXjFeNwMBpAFeqwFesQEDAaMBXytfMAMBoQFfqQFfrwEDAaABX5cBX54BAwGfAWAxYDcDAZ0BYKsBYLEBAwGcAWExYTcDAZoBYasBYbEBAwGZAWIrYjADAZcBYqEBYqcBAwGWAWKTAWKWAQMBlQFjMWM3AwGTAWOrAWOxAQMBkgFkK2QwAwGQAWSlAWSrAQMBjwFklQFkmgEDAY4BZTFlNwMBjAFlqwFlsQEDAYsBZitmMAMBiQFmyQFmzwEDAYgBZp8BZr4BAwGHAWcxZzcDAYUBZ6sBZ7EBAwGEAWgraDADAYIBaKUBaKsBAwGBAWiVAWiaAQMBgAFpMWk3AgF+aawBabIBAgF9apMBapcBAgF7ajhqPQIBemqiAWqoAQIBeWosai8CAXhrMWs3AgF2a6kBa68BAgF1bDFsNwIBc2yqAWywAQIBcm0xbTcCAXBtqgFtsAECAW9uMW43AgFtbqoBbrABAgFsbzFvNwIBam+qAW+wAQIBaXAxcDcCAWdwqgFwsAECAWZxMXE3AgFkcaoBcbABAgFjcjFyNwIBYXKqAXKwAQIBYHMxczcCAV5zqgFzsAECAV10MXQ3AgFbdKoBdLABAgFadTF1NwIBWHWsAXWyAQIBV3YxdjcCAVV2rAF2sgECAVR3K3cwAgFSd6UBd6sBAgFRd5UBd5oBAgFQeDF4NwIBTnisAXiyAQIBTXkreTACAUt5zwF51QECAUp5ogF5xAECAUl6MXo3AgFHeqwBerIBAgFGezF7NwIBRHusAXuyAQIBQ3y2AXy5AQIBQXw/fEQCAUB84QF85wECAT98M3w2AgE+fL8BfNYBAgE8fK0BfLEBAgE7fSt9MAIBOX2lAX2rAQIBOH2VAX2aAQIBN34xfjcCATV+rAF+sgECATR/MX83AgEyf6wBf7IBAgExgAHGAYAByQECAS+AAU+AAVQCAS6AAdQBgAHaAQIBLYABQ4ABRgIBLIABvQGAAcEBAgErgQErgQEwAgEpgQHKAYEB0AECASiBAaABgQG/AQIBJ4IBMYIBNwIBJYIBrAGCAbIBAgEkgwErgwEwAgEigwGmAYMBrAECASGDAZYBgwGbAQIBIIQBMYQBNwIBHoQBrAGEAbIBAgEdhQExhQE3AgEbhQGsAYUBsgECARqGASqGAS8CARiGAawBhgGyAQIBF4YBgAGGAaEBAgEVhwErhwEwAgEThwGmAYcBrAECARKHAZYBhwGbAQIBEYgBMYgBNwIBD4gBrAGIAbIBAgEOkAF5kAG7AQIBCpEBfJEBngECAQg=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="GetRobotAsset_1" sap:VirtualizedContainerService.HintSize="676,22.4" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="676,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_1" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_1" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_2" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_2" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_3" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_4" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_3" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_5" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_4" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_6" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_5" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_7" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_6" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_8" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalMoveCursor_1" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_9" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_10" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_11" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_12" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_13" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_14" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_15" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_16" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_17" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_18" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_19" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_20" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_7" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_21" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_8" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_22" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_23" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalGetTextAtPosition_1" sap:VirtualizedContainerService.HintSize="314.4,88" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_9" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_24" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_25" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalGetTextAtPosition_2" sap:VirtualizedContainerService.HintSize="314.4,88" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_10" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_26" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_11" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_27" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_28" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="TerminalGetText_1" sap:VirtualizedContainerService.HintSize="314.4,22.4" />
+      <sap2010:ViewStateData Id="TerminalSendKeys_12" sap:VirtualizedContainerService.HintSize="314.4,60" />
+      <sap2010:ViewStateData Id="TerminalSendControlKey_29" sap:VirtualizedContainerService.HintSize="314.4,62.4" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336.8,4672.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminalSession_2" sap:VirtualizedContainerService.HintSize="676,4772.8" />
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_1" sap:VirtualizedContainerService.HintSize="314.4,22.4" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="336.8,280">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="676,429.6" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="698.4,5529.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LoginTerminalCreateFolderStructure_1" sap:VirtualizedContainerService.HintSize="738.4,5649.6" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
